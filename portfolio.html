@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana Júlia Ribeiro — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sol-purple:#9945FF;
+    --sol-teal:#14F195;
+    --sol-blue:#19FB9B;
+    --sol-magenta:#DC1FFF;
+    --ink:#0B0B14;
+    --ink-2:#13131F;
+    --card:#1A1A28;
+    --card-2:#21212F;
+    --txt:#F4F4FA;
+    --txt-dim:#A6A6BC;
+    --grad:linear-gradient(135deg,var(--sol-purple) 0%,var(--sol-magenta) 45%,var(--sol-teal) 100%);
+    --shadow:0 20px 50px -12px rgba(0,0,0,.6);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Space Grotesk',sans-serif;
+    background:var(--ink);
+    color:var(--txt);
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* glowing blobs in the background */
+  .blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.35;z-index:0;pointer-events:none}
+  .blob.b1{width:480px;height:480px;background:var(--sol-purple);top:-140px;left:-120px;animation:float1 14s ease-in-out infinite}
+  .blob.b2{width:420px;height:420px;background:var(--sol-teal);bottom:-120px;right:-100px;animation:float2 16s ease-in-out infinite}
+  .blob.b3{width:360px;height:360px;background:var(--sol-magenta);top:40%;left:55%;opacity:.22;animation:float1 18s ease-in-out infinite}
+  @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,50px)}}
+  @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,-40px)}}
+ 
+  .wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:64px 24px 90px}
+ 
+  /* ---- hero ---- */
+  .hero{text-align:center;margin-bottom:56px;animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
+  .avatar{
+    width:128px;height:128px;border-radius:50%;margin:0 auto 26px;
+    background:var(--grad);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fredoka',sans-serif;font-weight:700;font-size:48px;color:#0B0B14;
+    box-shadow:0 0 0 6px rgba(153,69,255,.18),var(--shadow);
+    position:relative;
+    animation:bob 5s ease-in-out infinite;
+  }
+  .avatar::after{
+    content:"";position:absolute;inset:0;border-radius:50%;
+    box-shadow:inset 0 -16px 26px rgba(0,0,0,.18),inset 0 14px 22px rgba(255,255,255,.35);
+  }
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  h1{
+    font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(40px,7vw,68px);
+    line-height:1.02;letter-spacing:-.02em;margin-bottom:14px;
+  }
+  h1 .grad{
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .tagline{color:var(--txt-dim);font-size:clamp(16px,2.4vw,20px);max-width:480px;margin:0 auto;font-weight:400}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;
+    padding:8px 16px;border-radius:999px;font-size:13px;font-weight:500;letter-spacing:.04em;
+    background:rgba(20,241,149,.1);border:1px solid rgba(20,241,149,.3);color:var(--sol-teal);
+  }
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--sol-teal);box-shadow:0 0 10px var(--sol-teal);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+ 
+  /* ---- section label ---- */
+  .section-label{
+    font-family:'Fredoka',sans-serif;font-weight:600;font-size:14px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--txt-dim);margin:0 0 18px 6px;
+  }
+ 
+  /* ---- link grid ---- */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:44px}
+  .card{
+    display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--txt);
+    background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:22px;
+    padding:20px 22px;position:relative;overflow:hidden;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s;
+    animation:rise .7s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .card::before{
+    content:"";position:absolute;inset:0;border-radius:22px;padding:1px;
+    background:var(--grad);opacity:0;
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;transition:opacity .35s;
+  }
+  .card:hover{transform:translateY(-6px) scale(1.015);box-shadow:var(--shadow);border-color:transparent}
+  .card:hover::before{opacity:1}
+  .card:hover .ic{transform:scale(1.08) rotate(-4deg)}
+  .ic{
+    flex:0 0 50px;width:50px;height:50px;border-radius:15px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--card-2);transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .ic svg{width:26px;height:26px}
+  .card .meta{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .card .meta b{font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px}
+  .card .meta span{font-size:13px;color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .arrow{margin-left:auto;color:var(--txt-dim);transition:transform .3s,color .3s;flex:0 0 auto}
+  .card:hover .arrow{transform:translateX(4px);color:var(--sol-teal)}
+ 
+  /* project card spans full width + gradient tint */
+  .card.project{grid-column:1 / -1;background:linear-gradient(135deg,rgba(153,69,255,.14),rgba(20,241,149,.08));border-color:rgba(153,69,255,.25)}
+  .card.project .ic{background:rgba(0,0,0,.25)}
+ 
+  /* contact row */
+  .contact{display:flex;gap:12px;flex-wrap:wrap}
+  .pill{
+    display:inline-flex;align-items:center;gap:9px;text-decoration:none;cursor:pointer;
+    background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:999px;
+    padding:12px 18px;color:var(--txt);font-size:14px;font-weight:500;
+    transition:transform .3s,border-color .3s,background .3s;
+  }
+  .pill:hover{transform:translateY(-3px);border-color:var(--sol-teal);background:var(--card-2)}
+  .pill svg{width:18px;height:18px}
+  .pill .copied{color:var(--sol-teal);font-weight:600}
+ 
+  footer{text-align:center;margin-top:60px;color:var(--txt-dim);font-size:13px}
+  footer .heart{color:var(--sol-magenta)}
+ 
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  .grid .card:nth-child(1){animation-delay:.05s}
+  .grid .card:nth-child(2){animation-delay:.12s}
+  .grid .card:nth-child(3){animation-delay:.19s}
+  .grid .card:nth-child(4){animation-delay:.26s}
+  .grid .card:nth-child(5){animation-delay:.33s}
+ 
+  @media(max-width:560px){
+    .grid{grid-template-columns:1fr}
+    .wrap{padding:44px 18px 70px}
+  }
+</style>
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+ 
+  <main class="wrap">
+    <section class="hero">
+      <div class="avatar">AJ</div>
+      <div class="badge"><span class="dot"></span> Building in public</div>
+      <h1>Ana Júlia <span class="grad">Ribeiro</span></h1>
+      <p class="tagline">Developer &amp; builder. Find my work, my projects, and ways to connect, all in one place.</p>
+    </section>
+ 
+    <p class="section-label">My profiles</p>
+    <div class="grid">
+      <!-- GitHub -->
+      <a class="card" href="https://github.com/anajuliarrod" target="_blank" rel="noopener">
+        <span class="ic">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.2 11.2 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+        </span>
+        <span class="meta"><b>GitHub</b><span>@anajuliarrod</span></span>
+        <span class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+ 
+      <!-- LinkedIn -->
+      <a class="card" href="https://www.linkedin.com/in/ana-j%C3%BAlia-ribeiro/" target="_blank" rel="noopener">
+        <span class="ic">
+          <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.74v20.5C0 23.2.8 24 1.77 24h20.45c.98 0 1.78-.8 1.78-1.76V1.74C24 .78 23.2 0 22.22 0z"/></svg>
+        </span>
+        <span class="meta"><b>LinkedIn</b><span>Ana Júlia Ribeiro</span></span>
+        <span class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+ 
+      <!-- X / Twitter -->
+      <a class="card" href="https://x.com/anajuliarrod" target="_blank" rel="noopener">
+        <span class="ic">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.01 4.13H5.04l12.04 15.64z"/></svg>
+        </span>
+        <span class="meta"><b>X / Twitter</b><span>@anajuliarrod</span></span>
+        <span class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+ 
+      <!-- Telegram -->
+      <a class="card" href="https://t.me/anajuliarrod" target="_blank" rel="noopener">
+        <span class="ic">
+          <svg viewBox="0 0 24 24" fill="#229ED9"><path d="M11.94 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.57 8.2-1.86 8.78c-.14.62-.5.78-1.02.48l-2.82-2.08-1.36 1.31c-.15.15-.28.28-.57.28l.2-2.87 5.23-4.72c.23-.2-.05-.32-.35-.12L8.3 13.1l-2.78-.87c-.6-.19-.62-.6.13-.9l10.86-4.18c.5-.18.94.12.78.95z"/></svg>
+        </span>
+        <span class="meta"><b>Telegram</b><span>@anajuliarrod</span></span>
+        <span class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+    </div>
+ 
+    <p class="section-label">My project — Open</p>
+    <div class="grid">
+      <!-- Project GitHub -->
+      <a class="card project" href="https://github.com/OpenSubmissionn" target="_blank" rel="noopener">
+        <span class="ic">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.2 11.2 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+        </span>
+        <span class="meta"><b>Project GitHub</b><span>github.com/OpenSubmissionn</span></span>
+        <span class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+ 
+      <!-- Project X -->
+      <a class="card project" href="https://x.com/OpenDevT" target="_blank" rel="noopener">
+        <span class="ic">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.01 4.13H5.04l12.04 15.64z"/></svg>
+        </span>
+        <span class="meta"><b>Project X / Twitter</b><span>@OpenDevT</span></span>
+        <span class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+    </div>
+ 
+    <p class="section-label">Get in touch</p>
+    <div class="contact">
+      <a class="pill" href="mailto:anajuliarodrigues139@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--sol-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 7 9 6 9-6"/></svg>
+        anajuliarodrigues139@gmail.com
+      </a>
+      <button class="pill" id="copyEmail" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--sol-purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span id="copyLabel">Copy email</span>
+      </button>
+    </div>
+ 
+    <footer>© 2026 Ana Júlia Ribeiro</footer>
+  </main>
+ 
+<script>
+  const btn=document.getElementById('copyEmail');
+  const label=document.getElementById('copyLabel');
+  btn.addEventListener('click',()=>{
+    navigator.clipboard.writeText('anajuliarodrigues139@gmail.com').then(()=>{
+      label.textContent='Copied! ✓';label.classList.add('copied');
+      setTimeout(()=>{label.textContent='Copy email';label.classList.remove('copied')},1800);
+    });
+  });
+</script>
+</body>
+</html>
